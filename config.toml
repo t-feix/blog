@@ -8,7 +8,7 @@ lang        = "en"
 
 url    = "http://t-feix.github.io/blog"
  
-base   = "blog"
+base   = "/blog"
  
 domain = ""
  

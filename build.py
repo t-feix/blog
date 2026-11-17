@@ -86,7 +86,8 @@ def post_list(posts):
 
 def write(rel: str, content: str):
     # Prefix root-relative links with the repo path (e.g. /blog) when hosted at user.github.io/blog/
-    base = "" if LOCAL else CONFIG["site"].get("base", "").strip().rstrip("/")
+    base = "" if LOCAL else CONFIG["site"].get("base", "").strip().strip("/")
+    base = f"/{base}" if base else ""  # "blog", "/blog" and "/blog/" all become "/blog"
     if base and rel.endswith(".html"):
         content = re.sub(r'(href|src)="/(?!/)', rf'\1="{base}/', content)
     target = OUT / rel
