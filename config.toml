@@ -5,10 +5,8 @@ description = "Blah Blah Blah"
 intro       = "Blah"
 lang        = "en"
 
-# Full public URL, used for RSS links. Use http://localhost:8000 while testing locally.
 url    = "http://localhost:8000"
 
-# Your custom domain for GitHub Pages (writes a CNAME file). Leave empty until you have one.
 domain = ""
 
 [nav]
