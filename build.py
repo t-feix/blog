@@ -14,6 +14,7 @@ import markdown
 ROOT = Path(__file__).parent
 POSTS, STATIC, OUT = ROOT / "posts", ROOT / "static", ROOT / "_site"
 CONFIG = tomllib.loads((ROOT / "config.toml").read_text(encoding="utf-8"))
+LOCAL = False  # set by "serve": ignore base path on localhost
 MD_EXT = ["fenced_code", "codehilite", "tables", "toc", "footnotes", "smarty"]
 
 
@@ -84,6 +85,10 @@ def post_list(posts):
 
 
 def write(rel: str, content: str):
+    # Prefix root-relative links with the repo path (e.g. /blog) when hosted at user.github.io/blog/
+    base = "" if LOCAL else CONFIG["site"].get("base", "").strip().rstrip("/")
+    if base and rel.endswith(".html"):
+        content = re.sub(r'(href|src)="/(?!/)', rf'\1="{base}/', content)
     target = OUT / rel
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(content, encoding="utf-8")
@@ -164,7 +169,8 @@ def snapshot():
 
 
 def serve(port=8000):
-    global CONFIG
+    global CONFIG, LOCAL
+    LOCAL = True
     build()
 
     def watch():

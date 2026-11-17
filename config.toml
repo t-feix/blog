@@ -5,10 +5,13 @@ description = "Blah Blah Blah"
 intro       = "Blah"
 lang        = "en"
 
-url    = "http://localhost:8000"
 
+url    = "http://t-feix.github.io/blog"
+ 
+base   = "blog"
+ 
 domain = ""
-
+ 
 [nav]
 Home  = "/"
 Blah  = "/blah"
